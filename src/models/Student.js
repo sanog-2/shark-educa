@@ -1,3 +1,10 @@
+const mongoose = require('mongoose')
+
+const validateEmail = function (email) {
+    const re = /^\w+([.-]?\w+)@\w+([.-]?\w+)(.\w{2,3})+$/;
+    return re.test(email)
+};
+
 const StudentSchema = new mongoose.Schema({
     name: {
         type: String,
@@ -9,9 +16,13 @@ const StudentSchema = new mongoose.Schema({
         lowercase: true,
         unique: true,
         required: true,
-        validate: [validateEmail], 'Por favor preencher com e-mail válido'
-
+        validate: [validateEmail, 'Por favor preencher com e-mail válido'],
+    },
+    phone: {
+        type: String,
     }
-})
+}, {
+    timestamps: true
+});
 
-module.exports = mongose.model('Student', Student)
+module.exports = mongoose.model('Student', StudentSchema); 
